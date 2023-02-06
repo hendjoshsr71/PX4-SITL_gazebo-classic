@@ -78,9 +78,9 @@ namespace gazebo
       // transport::NodePtr node_handle_;
       // transport::SubscriberPtr trigger_sub_;
 
-      // Subscribe to Gazebo messages
-      transport::SubscriberPtr heartbeat_sub_{nullptr};
-      transport::SubscriberPtr handofgod_sub_{nullptr};
+      // // Subscribe to Gazebo messages
+      // transport::SubscriberPtr heartbeat_sub_{nullptr};
+      // transport::SubscriberPtr handofgod_sub_{nullptr};
 
     };  // class GAZEBO_VISIBLE HandOfGodPlugin
 

@@ -121,14 +121,14 @@ void HandOfGodPlugin::Load(physics::ModelPtr model, sdf::ElementPtr sdf)
   * Joystick (ie through mavlink)?
 */
 
-  // Subscribe to gazebo mavlink topics
-  const std::string heartbeat_sub_topic_ = "mavlink/heartbeat";
-  const std::string handofgod_sub_topic_ = "mavlink/handofgod";
-  heartbeat_sub_ = node_handle_->Subscribe("~/" + heartbeat_sub_topic_, &GazeboMavlinkInterface::HeartBeatCallback, this);
+  // // Subscribe to gazebo mavlink topics
+  // const std::string heartbeat_sub_topic_ = "mavlink/heartbeat";
+  // const std::string handofgod_sub_topic_ = "mavlink/handofgod";
+  // heartbeat_sub_ = node_handle_->Subscribe("~/" + heartbeat_sub_topic_, &GazeboMavlinkInterface::HeartBeatCallback, this);
   
-  handofgod_sub_ = node_handle_->Subscribe("~/" + handofgod_sub_topic_, &GazeboMavlinkInterface::HandOfGodCallback, this);    // 
+  // handofgod_sub_ = node_handle_->Subscribe("~/" + handofgod_sub_topic_, &GazeboMavlinkInterface::HandOfGodCallback, this);    // 
 
-  
+
 }
 
 void HandOfGodPlugin::OnUpdate(const common::UpdateInfo&)
@@ -140,15 +140,15 @@ void HandOfGodPlugin::OnUpdate(const common::UpdateInfo&)
   // PX4 SITL: Simulator work starts then the PX4 process (similar to an actual autopilot occurs)
   // 
 
-  if (!mavlink_interface_->ReceivedHeartbeats()) {
-    return;
-  }
+  // if (!mavlink_interface_->ReceivedHeartbeats()) {
+  //   return;
+  // }
 
   // Look for hand_of_god messages to set the state or spawn
-  if (/* condition */)
-  {
-    /* code */
-  }
+  // if (/* condition */)
+  // {
+  //   /* code */
+  // }
 
 
 
