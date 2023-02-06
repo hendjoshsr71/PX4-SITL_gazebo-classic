@@ -192,6 +192,8 @@ private:
   bool IsRunning();
   void onSigInt();
 
+  void handle_handofgod();
+
   /**
    * @brief Set the MAV_SENSOR_ORIENTATION enum value based on the sensor orientation
    *

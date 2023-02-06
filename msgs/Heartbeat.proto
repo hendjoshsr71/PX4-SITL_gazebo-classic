@@ -1,0 +1,9 @@
+syntax = "proto2";
+package mav_msgs.msgs;
+
+message Heartbeat
+{
+  required int64 time_usec        = 1;
+  required bool received_once     = 2;
+  required int64 last_time_usec   = 3;
+}

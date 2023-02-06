@@ -520,9 +520,27 @@ void MavlinkInterface::handle_message(mavlink_message_t *msg)
   }
 }
 
-void MavlinkInterface::handle_heartbeat(mavlink_message_t *)
+void MavlinkInterface::handle_heartbeat(mavlink_message_t *msg)
 {
+  // Publish Gazebo Heartbeat message here
+
+
   received_heartbeats_ = true;
+}
+
+void MavlinkInterface::handle_handofgod(mavlink_message_t *msg)
+{
+  // const std::lock_guard<std::mutex> lock(handofgod_mutex_);
+
+  // Here we will probably hijack an unused mavlink message so we dont have a bunch of submodule changes!!
+
+  mavlink_hil_handofgod_t handofgod;
+  mavlink_msg_hil_handofgod_decode(msg, &handofgod);
+
+  // Can we publish from the is thread??
+  // Publish 
+  
+
 }
 
 void MavlinkInterface::handle_actuator_controls(mavlink_message_t *msg)
