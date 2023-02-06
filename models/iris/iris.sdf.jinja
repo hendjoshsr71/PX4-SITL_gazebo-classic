@@ -340,6 +340,14 @@
       <linkName>base_link</linkName>
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
     </plugin>
+
+    <!-- gazebo_hand_of_god for spawning and moving vehicles at will -->
+    <!--  -->
+    <plugin name="hand_of_god" filename='libgazebo_hand_of_god_plugin.so'>
+        <pose_file> ~/home/pose_test.txt </pose_file>
+        <rotation_on_drop> true </rotation_on_drop>
+    </plugin>
+
     <plugin name='front_right_motor_model' filename='libgazebo_motor_model.so'>
       <robotNamespace/>
       <jointName>rotor_0_joint</jointName>

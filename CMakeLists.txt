@@ -377,7 +377,10 @@ add_library(gazebo_parachute_plugin SHARED src/gazebo_parachute_plugin.cpp)
 add_library(gazebo_pose_sniffer_plugin SHARED src/gazebo_pose_sniffer_plugin.cpp)
 add_library(gazebo_airship_dynamics_plugin SHARED src/gazebo_airship_dynamics_plugin.cpp)
 add_library(gazebo_drop_plugin SHARED src/gazebo_drop_plugin.cpp)
+add_library(gazebo_hand_of_god_plugin SHARED src/gazebo_hand_of_god_plugin.cpp)
 
+# Unless there are namespace issues why the redundancy in names {gazebo}_{plugin_name}_{plugin}.cpp
+# We are in the gazebo plugin folder! should just be {plugin_name}.cpp
 set(plugins
   gazebo_airspeed_plugin
   gazebo_camera_manager_plugin
@@ -405,6 +408,7 @@ set(plugins
   gazebo_pose_sniffer_plugin
   gazebo_airship_dynamics_plugin
   gazebo_drop_plugin
+  gazebo_hand_of_god_plugin
   )
 
 foreach(plugin ${plugins})
