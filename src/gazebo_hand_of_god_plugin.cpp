@@ -88,6 +88,31 @@ void HandOfGodPlugin::Load(physics::ModelPtr model, sdf::ElementPtr sdf)
     pose_file_name_ = nullptr;
   }
 
+  // Get pose, velocity, and angular velocity from sdf
+  if (sdf->HasElement("pose")) {
+    _pose = sdf->GetElement("pose")->Get<ignition::math::Pose3d>();
+  } else {
+    _pose = ignition::math::Pose3d(0, 0, 0, 1, 0, 0, 0);
+  }
+
+  if (sdf->HasElement("velocity")) {
+    _velocity = sdf->GetElement("velocity")->Get<ignition::math::Vector3d>();
+  } else {
+    _velocity = ignition::math::Vector3d(0, 0, 0);
+  }
+
+  if (sdf->HasElement("angular_velocity")) {
+    _angular_velocity = sdf->GetElement("angular_velocity")->Get<ignition::math::Vector3d>();
+  } else {
+    _angular_velocity = ignition::math::Vector3d(0, 0, 0);
+  }
+
+  if (sdf->HasElement("reset_time")) {
+    _reset_time = sdf->GetElement("angular_velocity")->Get<double>();
+  } else {
+    _reset_time = -1.0;
+  }
+
   if (sdf->HasElement("rotation_on_drop")) {
     rotate_on_drop = sdf->GetElement("rotation_on_drop")->Get<bool>();
   } else {
@@ -187,14 +212,14 @@ void HandOfGodPlugin::OnUpdate(const common::UpdateInfo&)
   const double dt_us = (current_time_us - last_time_us_).Double();
     // std::cout << "dt = " << dt_us << "\n";
 
-    const double TIME_TO_MOVE = 5.0;
+    const double TIME_TO_MOVE = _reset_time;
     static bool flip = false;
     if (dt_us > (TIME_TO_MOVE)) {
       std::cout << "Vehicle_Pose X = " << vehicle_pose.Pos().X() << ", Z = " << vehicle_pose.Pos().Z() << "\n";
 
       if (!flip) {
         // Set vehicle pose to 10m above current position
-        new_vehicle_pose += ignition::math::Pose3d(0, 0, 50.0, 1, 0, 0, 0);
+        new_vehicle_pose += _pose;
         std::cout << "new Pose X = " << new_vehicle_pose.Pos().X() << ", Z = " << new_vehicle_pose.Pos().Z() << "\n";
 
         std::cout << "Model Name: " << model_->GetName() << "\n";
@@ -203,7 +228,10 @@ void HandOfGodPlugin::OnUpdate(const common::UpdateInfo&)
         //Force the model to rotate during the drop. The current physics do not cause it to rotate during a drop
         // Apply a small rotational velocity
 
-        model_->SetAngularVel(ignition::math::Vector3d(10* 3.14/180.0, 0.0, 0.0));
+        // model_->SetAngularVel(ignition::math::Vector3d(10* 3.14/180.0, 0.0, 0.0));
+
+        model_->SetAngularVel(_angular_velocity * (3.14/180.0));
+        model_->SetLinearVel(_velocity);
 
         flip = true;
       } else {
@@ -214,9 +242,9 @@ void HandOfGodPlugin::OnUpdate(const common::UpdateInfo&)
         // model_->SetWorldPose(new_vehicle_pose);
 
         // Set vehicle pose back to the ground
-        new_vehicle_pose += ignition::math::Pose3d(0, 0, 100.0, 1, 0, 0, 0);
+        new_vehicle_pose = ignition::math::Pose3d(0, 0, 0.0, 1, 0, 0, 0);
         model_->SetWorldPose(new_vehicle_pose);
-        model_->SetAngularVel(ignition::math::Vector3d(100* 3.14/180, 80* 3.14/180, 0.0));
+        // model_->SetAngularVel(ignition::math::Vector3d(100* 3.14/180, 80* 3.14/180, 0.0));
 
         flip = false;
       }

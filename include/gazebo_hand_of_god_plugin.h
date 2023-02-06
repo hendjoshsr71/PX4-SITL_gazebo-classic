@@ -67,6 +67,11 @@ namespace gazebo
       bool require_heartbeat_for_physics  = false;    // Require a heart from mavlink 
       bool require_ekf_good_for_physics   = false;    // Require an EFK good status before starting physics
 
+      ignition::math::Pose3d _pose;
+      ignition::math::Vector3d _velocity;
+      ignition::math::Vector3d _angular_velocity;
+      double _reset_time;
+
       // double max_rot_velocity_ = 3500;
       // double ref_motor_rot_vel_ = 0.0;
       // double arm_rot_vel_ = 100;

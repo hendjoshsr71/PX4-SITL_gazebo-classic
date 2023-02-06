@@ -346,6 +346,10 @@
     <plugin name="hand_of_god" filename='libgazebo_hand_of_god_plugin.so'>
         <pose_file> ~/home/pose_test.txt </pose_file>
         <rotation_on_drop> true </rotation_on_drop>
+        <pose> 0 0 500 1 0 0 0 </pose>
+        <velocity> 30 0 0 </velocity>
+        <angular_velocity> 30 15 0 </angular_velocity>
+        <reset_time> 15 </reset_time>
     </plugin>
 
     <plugin name='front_right_motor_model' filename='libgazebo_motor_model.so'>
